@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>LOGIN</title>
+    <!--<link rel="stylesheet" href="C:\Users\shashank\Desktop\webd project\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.min.css"
+    <style>
+    body
+    {
+        background-image: url(hendra-yudha-pratama-rDOS8pI6vLQ-unsplash.jpg);
+
+    }-->
+    <style>
+        #box
+        {
+            width: 475px;
+            height:350px;
+            background-color: rgba(0,0,0,.6);
+            margin-left: 500px;
+            margin-top: 200px;
+        }
+        #box h1
+        {
+            color: white;
+            font-size: 2em;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+        input
+        {
+            width: 350px;
+            height: 35px;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-family: sans-serif;
+        }
+     #login
+        {
+            width: 350px;
+            height: 35px;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-family:fantasy;
+            background-color:lawngreen;
+            color: white;
+        }
+        #box p
+        {
+            font-family: serif;
+            font-size: 1.6em;
+            color:white;
+            margin-bottom: 20px;
+        }
+        #box a
+        {
+            color: aquamarine;
+            text-decoration: none;
+        }
+        #box a:hover
+        {
+            color: deepskyblue;
+        }
+    </style>
+    
+    </head>
+<body>
+    <div id="box">
+        <center><h1>LOG IN</h1>
+            <%if(msg !=''){ %>
+                <p style="text-align: center"> <%= msg %></p>
+                <% } %>
+            <form action="/login" method="POST">
+                <input type="email" id="mail" placeholder="email" autocomplete="off" name="uemail" required>
+                <input type="password" id="pass" placeholder="password" name="upass" required>
+            <input type="submit" id="login" value="LOG IN"></form>
+        
+        <p>Dont have an account? <a href="/register">Join</a></p></center>
+    </div>
+    </body>
+    
+    </html>

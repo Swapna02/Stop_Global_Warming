@@ -1,0 +1,191 @@
+<html>
+<head>
+    <style>
+    body
+    {
+        background-image: url(hendra-yudha-pratama-rDOS8pI6vLQ-unsplash.jpg);}
+     
+    #box
+        {
+            width: 900px;
+            height:500px;
+            background-color: rgba(0,0,0,.6);
+            margin-left: 350px;
+            margin-top: 130px;
+        }
+        #box h1
+        {
+            color: white;
+            font-size: 2em;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+        input
+        {
+            width: 250px;
+            height: 25px;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-family: sans-serif;
+        }
+     .button
+        {
+            width: 350px;
+            height: 35px;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-family:fantasy;
+            background-color:lawngreen;
+            color: white;
+        }
+        #box p
+        {
+            font-family: serif;
+            font-size: 1.6em;
+            color:white;
+            margin-bottom: 20px;
+        }
+        #box a
+        {
+            color: aquamarine;
+            text-decoration: none;
+        }
+        #box a:hover
+        {
+            color: deepskyblue;
+        }
+        #box td 
+        {
+            width: 300px;
+        }
+        #type
+        {
+             width: 250px;
+            height: 25px;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-family: sans-serif;
+        }
+        .alert
+        {
+            font-size: 1em;
+            color: red;
+        }</style>
+    </head>
+<body>
+    <div id="box">
+        <center><h1>FORGET PASSWORD</h1></center>
+        <form><table> <tr><td><p>USERNAME:</p></td> <td><input type="text" id="name" minlength="6" required autocomplete="off"></td></tr>
+            <tr><td><p>EMAIL:</p></td><td> <input type="email" id="mail" required autocomplete="off"></td></tr></table>
+            <center><input type="button" onclick="generateotp()" id="generate" value="generate otp" class="button"></center>
+        <table><tr><td><p>OTP:</p></td><td><input type="number"  id="otp" required ></td ><td id="wrongotp" class="alert"></td></tr></table>
+        <center><input type="button" id="check" value="Verify OTP" onclick="otpcheck()" class="button"></center>
+                    <table>
+            <tr><td><p id="p1"></p></td><td id="p2"></td ><td id="passalert" class="alert"></td></tr>
+                    <tr><td><p id="p3"></p></td><td id="p4"></td><td id="repassalert" class="alert"></td></tr></table>
+        <center id="p5"></center></form>
+        
+    </div>
+    <script>
+        var otp1;
+    function generateotp()
+        {
+             var v1=0;
+            var v2=0;
+            var v3;
+            for(v3=0;v3<4;v3++)
+                {
+                    v2=Math.random();
+                    v2=v2*10;
+                    v2=Math.floor(v2);
+                    v1=v1+v2*Math.pow(10,v3);
+                }
+            otp1=v1;
+            window.alert(otp1);
+        }
+        function otpcheck()
+        {
+            var v1=document.getElementById("otp");
+             var v2=v1.value;
+            var v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14;
+            if(v2==otp1)
+                {
+                    v3=document.getElementById("p1");
+                    v4="enter NEW PASSWORD:";
+                    v3.textContent=v4;
+                    v5=document.getElementById("p2");
+                    v6='<input type="password" id="passw" required onchange="pass()">';
+                    v5.innerHTML=v6;
+                    v7=document.getElementById("p3");
+                    v8="re-enter NEW PASSWORD:";
+                    v7.textContent=v8;
+                    v9=document.getElementById("p4");
+                    v10='<input type="password" id="repassw" required onchange="repass()">';
+                    v9.innerHTML=v10;
+                    v11=document.getElementById("p5");
+                    v12='<input type="submit" value="change password" onclick="return repass()" onclick="return pass()" class="button">';
+                    v11.innerHTML=v12;
+                    return true;
+                }
+            else
+                {
+                    v13=document.getElementById("wrongotp");
+                    v14="*enter valid OTP";
+                    v13.textContent=v14;
+                    window.alert("wrong");
+                }
+        }
+        function pass()
+        {
+            var p1=document.getElementById("passw");
+            var low=/[a-z]/g;
+            var cap=/[A-Z]/g;
+            var num=/[0-9]/g;
+            var spl=/[!@#$%^&]/g;
+            if(p1.value.length<8)
+                {
+                    var alert="*need atleast 8 chars";
+                    var cont=document.getElementById("passalert");
+                    cont.textContent=alert; 
+                    return false;
+                }
+            else{
+                    var alert="";
+                    var cont=document.getElementById("passalert");
+                    cont.textContent=alert;
+                if(p1.value.match(low)&&p1.value.match(cap)&&p1.value.match(num)&&p1.value.match(spl))
+                    {
+                     var alert="";
+                        var cont=document.getElementById("passalert");
+                        cont.textContent=alert;
+                        return true;
+                    }
+                else
+                    {
+                       
+                        var alert="*should contain atleast 1 lowercase,1 upper case,1 number,1 spl charachter";
+                    var cont=document.getElementById("passalert");
+                    cont.textContent=alert;
+                        return false;
+                    }
+            }
+        }
+        function repass()
+        {
+            var v1=document.getElementById("repassw");
+            var v2=document.getElementById("passw");
+            if(v1.value==v2.value)
+                {
+                     var alert="";
+                        var cont=document.getElementById("repassalert");
+                        cont.textContent=alert;
+                    return true;
+                }
+            else{
+                var alert="*password not matched";
+                var cont=document.getElementById("repassalert");
+                        cont.textContent=alert;
+                return false;
+            }
+        }
+    </script></body></html>
