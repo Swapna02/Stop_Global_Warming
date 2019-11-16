@@ -3,9 +3,25 @@ var router = express.Router();
 var userModule = require('../modules/user');
 var bodyParser=require('body-parser');
 var urlencodedParser=bodyParser.urlencoded({extended:true});
-//var bcrypt=require('bcrypt');
+var jwt= require('jsonwebtoken');
+var datas=userModule.find({});
+
 
 /* GET home page. */
+function checkLoginUser(req,res,next){
+  var userToken=localStorage.getItem('userToken');
+  try {
+    var decoded = jwt.verify(userToken, 'LoginToken');
+  } catch(err) {
+    res.redirect('/login')
+  }
+}
+
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
+
 function ckeckEmail(req,res,next){
     var email=req.body.uemail;
     var checkexitemail= userModule.findOne({email:email})
@@ -15,22 +31,12 @@ function ckeckEmail(req,res,next){
             return res.render('register',{title: 'register',msg:'Email alreay present'});
         next();
     });
-}/*
-function ckeckname(req,res,next){
-  var uname=req.body.uname;
-  var checkexitname= userModule.findOne({username: uname})
-  checkexitname.exec((err,data)=>{
-      if(err) throw err;
-      if(data)
-          return res.render('register',{title: 'register',msg:'Username alreay present'});
-      next();
-  });
-}*/
+}
 router.get('/', function(req, res, next) {
     res.render('homepage', { title: 'Homepage' });
   });
 router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Login' ,msg:''});
+  res.render('login',{title:'login'})
 });
 router.post('/login',urlencodedParser, function(req, res, next) {
   var email=req.body.uemail;
@@ -40,12 +46,16 @@ router.post('/login',urlencodedParser, function(req, res, next) {
   res.render('login', { title: 'Login',msg:"Invalid Username and Password " });
   checkEmail.exec((err,data)=>{
     if(err)throw err;
-
+    var getUserId=data._id;
+    //var uname=data.username;
     var getPass=data.pass;
     console.log(data.pass+" "+password);
-    if(password==getPass){ 
-      console.log("success");
-      res.render('homepage', { title: 'Login',msg:"Username Loggedin Successfully " });
+    if(password==getPass)
+    { 
+       var token = jwt.sign({ userId: getUserId }, 'LoginToken');
+       localStorage.setItem('userToken', token);
+     localStorage.setItem('login_name', email);
+      res.redirect('/profile');
     }else{
       res.render('login', { title: 'Login',msg:"Invalid Username and Password " });
     }
@@ -53,17 +63,12 @@ router.post('/login',urlencodedParser, function(req, res, next) {
  
 });
 router.get('/register', function(req, res, next) {
-  console.log("hejkjhvjh");
   res.render('register', { title: 'Register',msg:''});
 });
 router.post('/register',ckeckEmail,function(req, res, next) {
-  console.log("hejkjhvjh");
     var uname=req.body.uname;
-    console.log(uname);
     var unum=req.body.unum;
-    console.log(unum);
     var uemail=req.body.uemail;
-    console.log(uemail);
     var upass=req.body.upass;
     var utype=req.body.utype;
     var ucpass=req.body.ucpass;
@@ -73,7 +78,6 @@ router.post('/register',ckeckEmail,function(req, res, next) {
       res.render('register', { title: 'register', msg:'Password not matched' });
     }
     else{
-    //password=bcrypt.hashSync(req.body.password,10);
     var userDetails = new userModule({
         username:uname,
         mobile:unum,
@@ -89,6 +93,17 @@ router.post('/register',ckeckEmail,function(req, res, next) {
   }
 });
 
+router.get('/profile', function(req, res, next) {
+  var login_name=localStorage.getItem('loginUser');
+  datas.exec(function(err,data)
+  {
+    if (err) throw err;
+  
+  res.render('login', { title: 'Login' , records:data,});
+});
+});
+
+
 router.get('/airpollution', function(req, res, next) {
     res.render('airpollution', { title: 'airpollution' });
   });
@@ -96,7 +111,6 @@ router.get('/airpollution', function(req, res, next) {
 router.get('/forget', function(req, res, next) {
     res.render('forget', { title: 'forget' });
   });
-  
 router.get('/info', function(req, res, next) {
     res.render('info', { title: 'info' });
   });
@@ -124,8 +138,8 @@ router.get('/pollution', function(req, res, next) {
   router.get('/stories', function(req, res, next) {
       res.render('stories', { title: 'stories' });
     });
-  router.get('/stats', function(req, res, next) {
-    res.render('stats', { title: 'stats' });
+  router.get('/post', function(req, res, next) {
+    res.render('post', { title: 'post' });
   });
     router.get('/types', function(req, res, next) {
         res.render('types', { title: 'types' });
@@ -133,6 +147,10 @@ router.get('/pollution', function(req, res, next) {
 router.get('/waterpollution', function(req, res, next) {
     res.render('waterpollution', { title: 'waterpollution' });
   });
-
+  router.get('/logout', function(req, res, next) {
+    localStorage.removeItem('userToken');
+   localStorage.removeItem('login_name');
+    res.redirect('/login');
+  });
 module.exports = router;
 
