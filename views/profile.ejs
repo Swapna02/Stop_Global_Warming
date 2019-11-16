@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  
+  function addItem2()
+           {
+                var ul = document.getElementById("dl");
+                var li = document.createElement("li");
+                var s="Swapna";
+                li.appendChild(document.createTextNode(s));
+                ul.appendChild(li);
+           }
+    </script>
+<style>
+    @font-face {
+      font-family: 'Calistoga', cursive;
+      src: url("https://fonts.googleapis.com/css?family=Calistoga&display=swap");
+    }
+    body
+    {
+        background:linear-gradient(to right, #766dff 0%, #88f3ff 100%);
+    }
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width:   300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+    background-color: white;
+    margin-left: 275px;
+    margin-top: 30px;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+    .post{
+        float: right;
+        margin-right: -300px;
+    }
+
+#contact {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  width: 285px;
+  font-size: 18px;
+}
+
+
+    h2
+    {
+        text-align: center;
+        color: white;
+        font-family: 'Calistoga', cursive;
+        
+    margin-left: 275px;
+    margin-top: 130px;
+    }
+    #list{
+        background-color: #766dff;
+        border: #766dff;
+        display: block;
+        padding: 10px;
+        font: 18px;
+        font-family: 'Calistoga', cursive;
+        border-radius: 8px;
+    }
+    .links{
+        font-size: 24px;
+        padding: 20px;
+        text-align: right;
+        float: right;
+    }
+    
+#abt
+    {
+        float: left;
+        margin-left: 5px;
+
+    }
+
+</style>
+</head>
+<body>
+<div id="abt">
+<h2 >User Profile Card</h2>
+
+<div class="card">
+  <img src="https://github.com/Swapna02/Stop_Global_Warming/blob/master/images/WhatsApp%20Image%202019-11-15%20at%204.01.23%20PM.jpeg?raw=true">
+  <%records.forEach(function(row){%>
+  <h1><%row.username%></h1>
+  
+  
+  <p id="contact"><%row.email%><br><%row.mobile%></p>
+<%});%>
+  <!--<button onclick="addItem2()">click</button>-->
+    </div></div>
+    <a class="links" href="/logout">Logout</a>
+    <a class="links" href="/post">Posts</a>
+    <br><br>
+    <div  class="post" >
+       
+        <ul  id="dl" style="font-size: 20px; border: 2px solid blueviolet; width: 500px;">
+            <li id="list">
+              vsvcvdvjdhvdbvnzdcvnzbcvbcn ncbn ccc xn cn  
+                </li>
+                
+                    
+        </ul>
+
+    </div>
+    <!--<ul id="dl" style="font-size: 20px; border: 2px solid black; width: 500px;">
+            <li class="list">
+                    vsvcvdvjdhvdbvnzdcvnzbcvbcn ncbn ccc xn cn  
+                      </li>
+                      <li class="list">
+
+                </li>
+                <li class="list">
+
+                </li>
+                <li class="list">
+
+                </li>
+                <li class="list" >
+        </ul>-->
+
+
+
+
+       
+
+
+</body>
+</html>
