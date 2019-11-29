@@ -1,14 +1,33 @@
 <html><script>
   
-                function addItem2()
+               /* function addItem2()
                          {
                               var ul = document.getElementById("dl");
                               var li = document.createElement("li");
-                              var s=document.getElementById("s");
-                              document.getElementById("s").innerHTML=s;
-                              li.appendChild(document.createTextNode(s));
+                              li.setAttribute('id',"li");
+                              var d=document.getElementById("s");
+                              li.appendChild(document.createTextNode(s.value));
                               ul.appendChild(li);
-                         }
+                         }*/
+                         var decodedCooki = decodeURIComponent(document.cookie);
+                var decodedCookie=decodedCooki.split(';');
+                var count=1;
+            
+                console.log(decodedCookie);
+                         document.onreadystatechange = () => {
+                    if (document.readyState === 'complete') {
+                        for(var i=0;i<decodedCookie.length;i++){
+                            var cookarr=decodedCookie[i].split('=');
+                         if(decodedCookie[i].includes("data")){
+                                var ul = document.getElementById("dl");
+                                var li = document.createElement("li");
+                                var cook=cookarr[1].split(',');
+                                li.setAttribute('id',"li");
+                                li.appendChild(document.createTextNode(""+cook[0]));
+                                ul.appendChild(li);
+                            }
+                        }
+                        }};
                   </script>
         <style>
                 body{
@@ -61,6 +80,21 @@
         font-family: 'Calistoga', cursive;
         border-radius: 8px;
     }
+    .s{
+        margin-left: 40px;
+        font-size: 18px;
+        padding: 5px;
+        font-family: 'Calistoga', cursive;
+        width: 400px;
+    }
+    
+    .s1{
+        margin-left: 40px;
+        font-size: 18px;
+        padding: 5px;
+        font-family: 'Calistoga', cursive;
+       
+    }
         </style>
 <head>
 
@@ -82,12 +116,13 @@
     </div></div>
     <br><br>
     <div  class="post" >
-       <input type="text" id="s"name="post">
-       <button onclick="addItem2()">post</button>
+        <h1 class="s">You can share your thoughs Here,</h1>
+        <form action="/post" method="POST">
+       <input type="text" class="s" name="post"placeholder="type...">
+       <button type="submit" class="s1">post</button></form>
         <ul  id="dl" style="font-size: 20px;margin-right: 400px; width: 500px;">
             <li id="li">
-              vsvcvdvjdhvdbvnzdcvnzbcvbcn ncbn ccc xn cn  
-                </li>
+            </li>
                 
                     
         </ul>
