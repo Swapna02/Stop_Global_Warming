@@ -75,9 +75,7 @@
 <body>
     <div id="box">
         <center><h1>LOG IN</h1>
-            <%if(msg !=''){ %>
-                <p style="text-align: center"> <%= msg %></p>
-                <% } %>
+           
             <form action="/login" method="POST">
                 <input type="email" id="mail" placeholder="email" autocomplete="off" name="uemail" required>
                 <input type="password" id="pass" placeholder="password" name="upass" required>
