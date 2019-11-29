@@ -27,5 +27,9 @@ var userSchema=new mongoose.Schema({
         default: Date.now
     }
 });
+var scheme=new mongoose.Schema({
+    Post : String
+})
 var userModel =mongoose.model('users',userSchema);
+
 module.exports=userModel;
